@@ -8,7 +8,7 @@ function HeaderQRPage() {
         QR Code Generator
       </span>
       <span>
-        vlxx
+        by <i>huybe</i>
       </span>
     </div>
   )

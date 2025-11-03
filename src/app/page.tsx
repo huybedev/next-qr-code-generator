@@ -10,7 +10,7 @@ export default async function Page() {
         <div className="max-w-6xl mx-auto flex flex-col flex-1 w-full">
           <HeaderQRPage />
 
-          <main className="flex-1 flex flex-col">
+          <main className="flex-1 flex flex-col my-4">
             <div className="flex flex-1 flex-col md:flex-row gap-4 md:items-stretch">
               {/* TypeSelection */}
               <div className="w-full md:flex-1 flex">
@@ -27,6 +27,9 @@ export default async function Page() {
               </div>
             </div>
           </main>
+          <footer className="text-center text-sm text-muted-foreground mt-8">
+            <i>huybe</i> © 2025 QR Code Generator. All rights reserved.
+          </footer>
         </div>
       </div>
 
