@@ -56,26 +56,32 @@ function BankComboboxComponent({ value, onChange, fieldName }: BankSelectProps) 
           className="w-full justify-between"
           disabled={isBanksLoading}
         >
-          {isBanksLoading ? (
-            "Đang tải danh sách ngân hàng..."
-          ) : selectedBank ? (
-            <div className="flex items-center gap-2">
-              {selectedBank.logo && (
-                <img
-                  src={selectedBank.logo}
-                  alt={selectedBank.shortName}
-                  className="w-5 h-5 object-contain"
-                />
-              )}
-              <span className="truncate">{selectedBank.shortName} - {selectedBank.name}</span>
-            </div>
-          ) : (
-            "Chọn ngân hàng..."
-          )}
+          <div className="flex items-center gap-2 min-w-0 flex-1">
+            {isBanksLoading ? (
+              <span>Đang tải...</span>
+            ) : selectedBank ? (
+              <>
+                {selectedBank.logo && (
+                  <img
+                    src={selectedBank.logo}
+                    alt={selectedBank.shortName}
+                    className="max-w-24 h-7 object-contain shrink-0"
+                  />
+                )}
+                <span className="truncate">{selectedBank.shortName}</span>
+              </>
+            ) : (
+              <span>Chọn ngân hàng...</span>
+            )}
+          </div>
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
+      <PopoverContent
+        className="md:w-full sm:w-[450px] w-[310px] p-0"
+        align="start"
+        sideOffset={4}
+      >
         <Command
           filter={(value: string, search: string) => {
             // Custom filter: search theo code, shortName, name
@@ -92,8 +98,7 @@ function BankComboboxComponent({ value, onChange, fieldName }: BankSelectProps) 
           }}
         >
           <CommandInput
-            placeholder="Tìm ngân hàng (tên, mã, shortName)..."
-            className="h-9"
+            placeholder="Tìm ngân hàng..."
           />
           <CommandList>
             <CommandEmpty>Không tìm thấy ngân hàng.</CommandEmpty>
@@ -106,27 +111,26 @@ function BankComboboxComponent({ value, onChange, fieldName }: BankSelectProps) 
                     onChange(fieldName, currentValue === value ? "" : currentValue)
                     setOpen(false)
                   }}
+                  className="gap-2"
                 >
-                  <div className="flex items-center gap-2 flex-1">
-                    {bank.logo && (
-                      <img
-                        src={bank.logo}
-                        alt={bank.shortName}
-                        className="w-5 h-5 object-contain shrink-0"
-                      />
-                    )}
-                    <div className="flex flex-col flex-1 min-w-0">
-                      <span className="font-medium truncate">
-                        {bank.shortName}
-                      </span>
-                      <span className="text-xs text-muted-foreground truncate">
-                        {bank.name} • {bank.code}
-                      </span>
-                    </div>
+                  {bank.logo && (
+                    <img
+                      src={bank.logo}
+                      alt={bank.shortName}
+                      className="w-24 h-10 object-contain shrink-0"
+                    />
+                  )}
+                  <div className="flex flex-col flex-1 min-w-0 overflow-hidden">
+                    <span className="font-medium truncate">
+                      {bank.shortName}
+                    </span>
+                    <span className="text-xs text-muted-foreground truncate">
+                      {bank.code} • {bank.name}
+                    </span>
                   </div>
                   <Check
                     className={cn(
-                      "ml-2 h-4 w-4 shrink-0",
+                      "h-4 w-4 shrink-0",
                       value === bank.bin ? "opacity-100" : "opacity-0"
                     )}
                   />
