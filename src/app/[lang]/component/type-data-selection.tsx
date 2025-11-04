@@ -12,6 +12,13 @@ import { useQRDataStore } from '@/store/qr-data.store'
 import { useQrTypeStore } from '@/store/qr-type.store'
 import { BankSelect } from './bank-select'
 
+type Dict = {
+  qr: { selectType: string };
+  qrTypes: Record<string, string>;
+  fields: Record<string, string>;
+  [key: string]: any;
+}
+
 /**
  * COMPONENT: TypeSelection
  * 
@@ -33,7 +40,7 @@ import { BankSelect } from './bank-select'
  * ✅ Local state cho input để typing mượt mà
  * ✅ Select không debounce vì user chọn 1 lần
  */
-function TypeSelection() {
+function TypeSelection({ dict }: { dict: Dict }) {
   // Lấy state và actions từ stores
   const { setQrType, qrType } = useQrTypeStore()
   const { qrData, setField, resetData } = useQRDataStore()
@@ -116,24 +123,25 @@ function TypeSelection() {
   return (
     <Card className='p-4 h-full shadow-lg'>
       <span className='font-medium text-lg block mb-4'>
-        Chọn loại dữ liệu cần tạo mã QR
+        {dict.qr.selectType}
       </span>
 
       {/* SECTION 1: Buttons chọn loại QR */}
       <div className='flex flex-wrap gap-2 mb-6'>
         {QR_TYPES_DATA.map((item, idx) => {
           const Logo = item.icon;
+          const typeKey = item.type.toLowerCase();
           return (
             <Button
               key={idx}
-              className={cn('flex flex-col h-auto w-24 items-center justify-center',
-                qrType === item.type && 'bg-primary hover:bg-primary text-primary-foreground hover:text-primary-foreground'
+              className={cn(
+                'flex flex-col h-auto w-24 items-center justify-center transition-all',
               )}
-              variant={'outline'}
+              variant={qrType === item.type ? 'default' : 'outline'}
               onClick={() => handleTypeChange(item.type)}
             >
               <Logo className='size-10' />
-              {item.label}
+              {dict.qrTypes[typeKey] || item.label}
             </Button>
           )
         })}
@@ -145,7 +153,7 @@ function TypeSelection() {
           {currentFields.map((field: any, index: number) => (
             <div key={index} className="grid items-center gap-2">
               <Label htmlFor={field.name}>
-                {getFieldLabel(field.labelKey)}
+                {dict.fields[field.labelKey] || getFieldLabel(field.labelKey)}
                 {field?.required && (<span className="text-red-500 ml-1">*</span>)}
               </Label>
 
@@ -158,6 +166,7 @@ function TypeSelection() {
                     value={localInputs[field.name] || qrData[field.name] || ''}
                     onChange={handleSelectChange}
                     fieldName={field.name}
+                    dict={dict}
                   />
                 ) : (
                   // Render Select static (WiFi security...)
@@ -182,7 +191,7 @@ function TypeSelection() {
                 <Input
                   type={field.type}
                   id={field.name}
-                  placeholder={getFieldPlaceholder(field.placeholderKey || '')}
+                  placeholder={dict.fields[field.placeholderKey] || getFieldPlaceholder(field.placeholderKey || '')}
                   value={localInputs[field.name] ?? qrData[field.name] ?? ''}
                   onChange={(e) => handleInputChange(field.name, e.target.value)}
                 />

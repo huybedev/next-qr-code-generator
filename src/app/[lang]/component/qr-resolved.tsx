@@ -13,6 +13,16 @@ import { QRType } from '@/enums/qr.enum';
 import Image from 'next/image';
 import { toast } from 'sonner';
 
+type Dict = {
+  qr: {
+    generated: string;
+    download: string;
+    enterData: string;
+  };
+  formats: Record<string, string>;
+  [key: string]: any;
+}
+
 /**
  * COMPONENT: QrGenerated
  * 
@@ -31,7 +41,7 @@ import { toast } from 'sonner';
  * TypeSelection thay đổi qrData -> useQRDataStore notify subscribers
  * -> QrGenerated re-render -> useMemo tính lại qrValue -> QRCode re-render
  */
-function QrGenerated() {
+function QrGenerated({ dict }: { dict: Dict }) {
   // Subscribe vào stores - React tự động re-render khi có thay đổi
   const { qrType } = useQrTypeStore()
   const { qrData } = useQRDataStore()
@@ -75,11 +85,9 @@ function QrGenerated() {
     const svg = qrRef.current?.querySelector('svg')
 
     if (!svg || !qrType || !qrValue) {
-      return toast.error("Vui lòng nhập đầy đủ thông tin để tạo mã QR", {
+      return toast.error(dict.qr.enterData, {
         duration: 4000,
-
       })
-
     }
 
     try {
@@ -104,7 +112,7 @@ function QrGenerated() {
 
   return (
     <Card className="p-4 flex flex-col items-center gap-4 h-full shadow-lg">
-      <h2 className="text-lg font-semibold">Mã QR được tạo</h2>
+      <h2 className="text-lg font-semibold">{dict.qr.generated}</h2>
 
       {/* 
         QRCode Component với ref
@@ -150,7 +158,7 @@ function QrGenerated() {
               }`}
           >
             <FileCode className="w-4 h-4" />
-            SVG
+            {dict.formats.svg || 'SVG'}
           </button>
 
           <button
@@ -161,7 +169,7 @@ function QrGenerated() {
               }`}
           >
             <FileImage className="w-4 h-4" />
-            PNG
+            {dict.formats.png || 'PNG'}
           </button>
 
           <button
@@ -172,7 +180,7 @@ function QrGenerated() {
               }`}
           >
             <FileText className="w-4 h-4" />
-            PDF
+            {dict.formats.pdf || 'PDF'}
           </button>
         </div>
 
@@ -184,8 +192,8 @@ function QrGenerated() {
         >
           <Download className="w-4 h-4" />
           {isDownloading
-            ? 'Đang tải...'
-            : `Tải mã QR (${selectedFormat.toUpperCase()})`
+            ? dict.common?.loading || 'Đang tải...'
+            : `${dict.qr.download} (${selectedFormat.toUpperCase()})`
           }
         </Button>
       </div>

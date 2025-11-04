@@ -17,6 +17,16 @@ import {
 import { cn } from '@/lib/utils'
 import { useBanks, type Bank } from '@/hooks/use-banks'
 
+type Dict = {
+  fields: {
+    bankLoading?: string;
+    bankPlaceholder?: string;
+    bankSearch?: string;
+    bankNotFound?: string;
+  };
+  [key: string]: any;
+}
+
 /**
  * COMPONENT: BankCombobox (Memoized)
  * 
@@ -35,9 +45,10 @@ interface BankSelectProps {
   value: string
   onChange: (fieldName: string, value: string) => void
   fieldName: string
+  dict: Dict
 }
 
-function BankComboboxComponent({ value, onChange, fieldName }: BankSelectProps) {
+function BankComboboxComponent({ value, onChange, fieldName, dict }: BankSelectProps) {
   const { data: banks = [], isLoading: isBanksLoading } = useBanks()
   const [open, setOpen] = useState(false)
 
@@ -58,20 +69,20 @@ function BankComboboxComponent({ value, onChange, fieldName }: BankSelectProps) 
         >
           <div className="flex items-center gap-2 min-w-0 flex-1">
             {isBanksLoading ? (
-              <span>Đang tải...</span>
+              <span>{dict.fields.bankLoading || 'Đang tải...'}</span>
             ) : selectedBank ? (
               <>
                 {selectedBank.logo && (
                   <img
                     src={selectedBank.logo}
                     alt={selectedBank.shortName}
-                    className="max-w-24 h-7 object-contain shrink-0"
+                    className="max-w-24 h-7 bg-white rounded object-contain shrink-0"
                   />
                 )}
                 <span className="truncate">{selectedBank.shortName}</span>
               </>
             ) : (
-              <span>Chọn ngân hàng...</span>
+              <span>{dict.fields.bankPlaceholder || 'Chọn ngân hàng...'}</span>
             )}
           </div>
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -98,10 +109,10 @@ function BankComboboxComponent({ value, onChange, fieldName }: BankSelectProps) 
           }}
         >
           <CommandInput
-            placeholder="Tìm ngân hàng..."
+            placeholder={dict.fields.bankSearch || 'Tìm ngân hàng...'}
           />
           <CommandList>
-            <CommandEmpty>Không tìm thấy ngân hàng.</CommandEmpty>
+            <CommandEmpty>{dict.fields.bankNotFound || 'Không tìm thấy ngân hàng.'}</CommandEmpty>
             <CommandGroup>
               {banks.map((bank: Bank) => (
                 <CommandItem
@@ -117,7 +128,7 @@ function BankComboboxComponent({ value, onChange, fieldName }: BankSelectProps) 
                     <img
                       src={bank.logo}
                       alt={bank.shortName}
-                      className="w-24 h-10 object-contain shrink-0"
+                      className="w-24 h-10 bg-white rounded object-contain shrink-0"
                     />
                   )}
                   <div className="flex flex-col flex-1 min-w-0 overflow-hidden">

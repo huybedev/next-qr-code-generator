@@ -1,0 +1,50 @@
+{
+  "common": {
+    "loading": "Đang tải...",
+    "error": "Đã có lỗi xảy ra",
+    "success": "Thành công",
+    "allRightsReserved": "Bản quyền được bảo lưu"
+  },
+  "qr": {
+    "title": "Tạo mã QR",
+    "selectType": "Chọn loại dữ liệu cần tạo mã QR",
+    "generated": "Mã QR được tạo",
+    "download": "Tải về",
+    "enterData": "Vui lòng nhập đầy đủ dữ liệu để tạo mã QR"
+  },
+  "qrTypes": {
+    "text": "Văn bản",
+    "url": "Liên kết",
+    "wifi": "WiFi",
+    "bank": "Ngân hàng"
+  },
+  "fields": {
+    "text": "Nội dung",
+    "textPlaceholder": "Nhập nội dung văn bản",
+    "url": "Đường dẫn URL",
+    "urlPlaceholder": "https://example.com",
+    "ssid": "Tên WiFi (SSID)",
+    "ssidPlaceholder": "Tên mạng WiFi",
+    "password": "Mật khẩu",
+    "passwordPlaceholder": "Mật khẩu WiFi",
+    "security": "Bảo mật",
+    "bank": "Ngân hàng",
+    "bankPlaceholder": "Chọn ngân hàng",
+    "bankLoading": "Đang tải danh sách ngân hàng...",
+    "bankSearch": "Tìm ngân hàng...",
+    "bankNotFound": "Không tìm thấy ngân hàng",
+    "accountNumber": "Số tài khoản",
+    "accountNumberPlaceholder": "Nhập số tài khoản",
+    "accountName": "Tên tài khoản",
+    "accountNamePlaceholder": "Nhập tên chủ tài khoản",
+    "amount": "Số tiền",
+    "amountPlaceholder": "Nhập số tiền cần chuyển",
+    "addInfo": "Nội dung chuyển tiền",
+    "addInfoPlaceholder": "Nhập nội dung chuyển tiền"
+  },
+  "formats": {
+    "svg": "SVG",
+    "png": "PNG",
+    "pdf": "PDF"
+  }
+}

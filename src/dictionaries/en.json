@@ -1,0 +1,50 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "allRightsReserved": "All rights reserved"
+  },
+  "qr": {
+    "title": "QR Code Generator",
+    "selectType": "Select data type for QR code",
+    "generated": "QR Code Generated",
+    "download": "Download",
+    "enterData": "Please enter all data to generate QR code"
+  },
+  "qrTypes": {
+    "text": "Text",
+    "url": "URL",
+    "wifi": "WiFi",
+    "bank": "Bank"
+  },
+  "fields": {
+    "text": "Content",
+    "textPlaceholder": "Enter text content",
+    "url": "URL",
+    "urlPlaceholder": "https://example.com",
+    "ssid": "WiFi Name (SSID)",
+    "ssidPlaceholder": "WiFi network name",
+    "password": "Password",
+    "passwordPlaceholder": "WiFi password",
+    "security": "Security",
+    "bank": "Bank",
+    "bankPlaceholder": "Select bank",
+    "bankLoading": "Loading banks...",
+    "bankSearch": "Search bank...",
+    "bankNotFound": "Bank not found",
+    "accountNumber": "Account Number",
+    "accountNumberPlaceholder": "Enter account number",
+    "accountName": "Account Name",
+    "accountNamePlaceholder": "Enter account holder name",
+    "amount": "Amount",
+    "amountPlaceholder": "Enter transfer amount",
+    "addInfo": "Transfer Message",
+    "addInfoPlaceholder": "Enter transfer message"
+  },
+  "formats": {
+    "svg": "SVG",
+    "png": "PNG",
+    "pdf": "PDF"
+  }
+}
